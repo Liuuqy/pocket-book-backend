@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <form action="/user/edituserInfo" enctype="multipart/form-data">
+      <input id="fileInput" type="file" />
+      <input id="signature" type="text" />
+      <script>
+        const fileInput = document.querySelector("#fileInput");
+
+        async function formData() {
+          const data = new FormData();
+          data.set("name", "xulianghui");
+          data.set("signature", signature);
+          data.set("avatar", fileInput.files[0]);
+
+          fetch('http://localhost:3000/user/edituserInfo', {
+          method: 'POST',
+          body: data
+        }).then(res => {
+          if(res.ok) {
+            console.log('success')
+            return res.json();
+          } else {
+            console.log('error')
+          }
+        }).then(res => {
+          console.log('res is', res);
+        })
+        }
+
+        fileInput.onchange = formData;
+      </script>
+  </body>
+</html>
